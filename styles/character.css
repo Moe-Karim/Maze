@@ -1,0 +1,41 @@
+.character-section{
+  background-image: url(./../assets/images/character-bg.png);
+  background-size: cover;
+  background-color: bisque;
+}
+
+.character {
+  padding: 100px 0;
+}
+
+.character h1 .character p{
+  background-color: bisque;
+}
+.character img {
+  height: 300px;
+  margin-right: 100px;
+}
+
+.hazmat{
+  text-align: right;
+}
+
+.hazmat img{
+  margin-right: 0px;
+  margin-left: 100px;
+}
+
+@media screen and (max-width: 780px) {
+    .character > div{
+      flex-direction: column;
+    }
+    .character img {
+      width: 148px;
+      height: 328px;
+      margin: 50px 0;
+    }
+    .hazmat{
+      align-items: end;
+      flex-direction: reverse;
+    }
+  }
