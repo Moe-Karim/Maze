@@ -7,7 +7,7 @@ var start = false;
 var won = false;
 var score = 0;
 var scoreText;
-var level = 2;
+var level = 1;
 var fruitsCollected = 0;
 var normalSpeed = 160;
 var slowSpeed = 80;
@@ -302,21 +302,36 @@ function createCollectibles() {
     { x: 700, y: 150 },
     { x: 110, y: 380 },
   ];
-  if(level == 2){
-    if (level == 2) {
-      coinPosition.push(
-        { x: 400, y: 300 },
-        { x: 450, y: 300 },
-        { x: 500, y: 300 },
-        { x: 550, y: 300 },
-        { x: 600, y: 300 }
-      );
-    
-      fruitPosition.push(
-        { x: 750, y: 400 },
-        { x: 150, y: 200 }
-      );
-    }
+  if (level >= 2) {
+    coinPosition.push(
+      { x: 530, y: 300 },
+      { x: 530, y: 270 },
+      { x: 530, y: 240 },
+      { x: 530, y: 210 },
+      { x: 530, y: 180 },
+      { x: 530, y: 425 },
+      { x: 500, y: 425 },
+      { x: 470, y: 425 },
+      { x: 440, y: 425 },
+      { x: 410, y: 425 }
+    );
+
+    fruitPosition.push({ x: 450, y: 155 }, { x: 340, y: 425 });
+  }
+  if (level >= 3) {
+    coinPosition.push(
+      { x: 620, y: 290 },
+      { x: 620, y: 260 },
+      { x: 620, y: 230 },
+      { x: 620, y: 200 },
+      { x: 170, y: 230 },
+      { x: 140, y: 230 },
+      { x: 200, y: 230 },
+      { x: 200, y: 260 },
+      { x: 200, y: 290 }
+    );
+
+    fruitPosition.push({ x: 620, y: 150 }, { x: 200, y: 320 });
   }
 
   coinPosition.forEach((position) => {
