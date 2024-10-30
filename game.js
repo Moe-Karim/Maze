@@ -9,7 +9,9 @@ var normalSpeed = 160;
 var slowSpeed = 80;
 var speedModifierActive = false;
 var doorSprite;
-
+var timerText;
+var timer = 40;
+var timerEvent; 
 
 var config = {
   type: Phaser.AUTO,
@@ -77,7 +79,8 @@ function create() {
   this.add.image(400, 502.5, "mid-down");
 
   //plants
-
+    this.add.image((400),(85.5),'plant-edge-up')
+    this.add.image((400),(517.5),'plant-edge-down')
   platform = this.physics.add.staticGroup();
   door = this.physics.add.staticGroup();
 
@@ -136,6 +139,20 @@ function create() {
 
   this.physics.add.collider(player, platform);
 
+  //timer text
+  timerText = this.add.text(630, 16, "Time: 40", {
+    fontSize: "32px",
+    fill: "#fff",
+  });
+
+  //timer
+  timerEvent = this.time.addEvent({
+    delay: 1000,
+    callback: updateTimer,
+    callbackScope: this,
+    loop: true,
+  });
+
   //game
   cursors = this.input.keyboard.createCursorKeys();
   spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -164,6 +181,15 @@ function update() {
     player.setVelocityY(speedModifierActive ? slowSpeed : normalSpeed);
   }
 }
+
+function updateTimer() {
+    timer -= 1;
+    timerText.setText("Time: " + timer);
+    if (timer <= 0) {
+      timerEvent.destroy();
+      //Lose Screen
+    }
+  }
 
 function createCollectibles() {
   for (let i = 0; i < 10; i++) {
