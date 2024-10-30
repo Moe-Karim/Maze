@@ -10,6 +10,12 @@
 body{
     font-family: 'Me Again';
 }
+h1{
+    font-size: 64px;
+}
+h2{
+    font-size: 36px;
+}
 .nav-bar{
     width: 1000px;
     height: 100px;
@@ -54,3 +60,4 @@ footer i{
 footer span{
     font-size: 14pt;
 }
+
