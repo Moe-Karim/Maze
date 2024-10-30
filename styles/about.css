@@ -1,7 +1,9 @@
-
+.about{
+    width: 100%;
+}
 .about-game {
   margin-bottom: 50px;
-  width: 100%;
+  
 }
 
 .about-game h1 {
@@ -11,5 +13,8 @@
 @media screen and (max-width: 780px) {
   .space {
     margin: 0 50px;
+  }
+  .about-game {
+    padding: 50px 0;
   }
 }

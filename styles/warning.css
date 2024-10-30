@@ -1,7 +1,7 @@
 .warning-section{
-    height: 400px;
+    height: 500px;
     background-image: url(./../assets/images/warning-bg.png);
-    background-position: center;
+    background-size: cover;
 }
 
 .warning  h1{

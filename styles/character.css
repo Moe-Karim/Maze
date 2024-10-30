@@ -1,7 +1,16 @@
-.character {
-  margin: 100px 0;
+.character-section{
+  background-image: url(./../assets/images/desert-bg.png);
+  background-size: cover;
+  background-color: bisque;
 }
 
+.character {
+  padding: 100px 0;
+}
+
+.character h1 .character p{
+  background-color: bisque;
+}
 .character img {
   height: 300px;
   margin-right: 100px;
