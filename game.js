@@ -279,6 +279,50 @@ function winGame(scene) {
   if (timerEvent) {
     timerEvent.destroy();
   }
+  scene.time.delayedCall(3000, nextLevel, [scene], this);
+}
+
+function nextLevel(scene) {
+  if (level >= 3) {
+    endGame(scene);
+    return;
+  }
+  player.setPosition(25, 150);
+  timer = 40;
+  timerText.setText("Time: " + timer);
+  timerEvent = scene.time.addEvent({
+    delay: 1000,
+    callback: updateTimer,
+    callbackScope: scene,
+    loop: true,
+  });
+  level += 1;
+  won = false;
+
+  if (winText) {
+    winText.destroy();
+  }
+  scene.overlay.setVisible(false);
+
+  scene.physics.resume();
+
+  createCollectibles.call(scene);
+}
+
+function endGame(scene) {
+  if (winText) winText.destroy();
+  scene.overlay.setVisible(true);
+  scene.physics.pause();
+  
+  scene.add.text(400, 250, "Thank You for Playing!", {
+    fontSize: "40px",
+    fill: "#FFF",
+  }).setOrigin(0.5, 0.5);
+  
+  scene.add.text(400, 350, `Final Score: ${score}`, {
+    fontSize: "32px",
+    fill: "#FFF",
+  }).setOrigin(0.5, 0.5);
 }
 
 function createCollectibles() {
