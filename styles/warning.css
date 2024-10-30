@@ -1,0 +1,32 @@
+.warning-section{
+    height: 400px;
+    background-image: url(./../assets/images/warning-bg.png);
+    background-position: center;
+}
+
+.warning  h1{
+    text-align: center;
+}
+
+.warning img{
+    height: 300px;
+    margin-left: 200px;
+}
+
+.warning button{
+    border: 0;
+    padding: 20px 100px;
+    background-image: url(./../assets/images/button-bg.png);
+    background-size: cover;
+    background-position: center;
+    font-size: 36px;
+    font-family: 'Me Again';
+    font-weight: 600;
+    margin-top: 20px;
+    background-color: transparent;
+}
+@media screen and (max-width: 780px) {
+    .warning img{
+        display: none;
+    }
+  }

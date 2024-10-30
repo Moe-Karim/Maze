@@ -16,7 +16,6 @@
   margin-left: 100px;
 }
 
-
 @media screen and (max-width: 780px) {
     .character > div{
       flex-direction: column;
