@@ -3,12 +3,13 @@ var spriteNum = 0;
 var spacePressed = false;
 var score = 0;
 var scoreText;
-var level = 1;
+var level = 2;
 var fruitsCollected = 0;
-var totalFruits = 6;
 var normalSpeed = 160;
 var slowSpeed = 80;
 var speedModifierActive = false;
+var doorSprite;
+
 
 var config = {
   type: Phaser.AUTO,
@@ -78,6 +79,7 @@ function create() {
   //plants
 
   platform = this.physics.add.staticGroup();
+  door = this.physics.add.staticGroup();
 
   //maze
   platform.create(15, 97.5, "left-up");
@@ -98,8 +100,8 @@ function create() {
   platform.create(420, 280, "horiz-wall").setScale(0.5).refreshBody();
   platform.create(570, 220, "vertical-wall").setScale(0.6).refreshBody();
   //bottom
+  doorSprite = door.create(755, 330, "vertical-wall");
   platform.create(755, 270, "vertical-wall");
-  platform.create(145, 190.5, "horiz-wall").setScale(0.8).refreshBody();
   platform.create(175, 470.5, "horiz-wall");
   platform.create(400, 470.5, "horiz-wall").setScale(0.5).refreshBody();
   platform.create(625, 470.5, "horiz-wall");
@@ -113,6 +115,7 @@ function create() {
   player = this.physics.add.sprite(25, 150, sprites[spriteNum]);
   player.setCollideWorldBounds(true);
   this.physics.add.collider(player, platform);
+  doorCollider = this.physics.add.collider(player, doorSprite);
   player.setSize(20, 35);
 
   //score text
@@ -174,7 +177,7 @@ function createCollectibles() {
     coin.anims.play("spin");
     this.physics.add.overlap(player, coin, collectCoin, null, this);
   }
-  for (let j = 0; j < level * 2; j++) {
+  for (let j = 0; j < (level * 2); j++) {
     const fruit = this.physics.add.sprite(
       Math.random() * (710 - 90) + 90,
       Math.random() * (430 - 155) + 155,
@@ -193,6 +196,11 @@ function collectCoin(player, coin) {
 
 function collectFruit(player, fruit) {
   fruit.destroy();
+  fruitsCollected += 1;
+  if (fruitsCollected >= (level * 2)) {
+    doorSprite.y = 270;
+    doorCollider.active = false
+  }
   if (!speedModifierActive) {
     player.setVelocityX(slowSpeed);
     player.setVelocityY(slowSpeed);
