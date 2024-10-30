@@ -1,6 +1,10 @@
+var platform;
 var sprites = ["tryhard", "hazmat", "explorer"];
 var spriteNum = 0;
 var spacePressed = false;
+var paused = false;
+var start = false;
+var won = false;
 var score = 0;
 var scoreText;
 var level = 2;
@@ -11,7 +15,7 @@ var speedModifierActive = false;
 var doorSprite;
 var timerText;
 var timer = 40;
-var timerEvent; 
+var timerEvent;
 
 var config = {
   type: Phaser.AUTO,
@@ -79,8 +83,8 @@ function create() {
   this.add.image(400, 502.5, "mid-down");
 
   //plants
-    this.add.image((400),(85.5),'plant-edge-up')
-    this.add.image((400),(517.5),'plant-edge-down')
+  this.add.image(400, 85.5, "plant-edge-up");
+  this.add.image(400, 517.5, "plant-edge-down");
   platform = this.physics.add.staticGroup();
   door = this.physics.add.staticGroup();
 
@@ -145,73 +149,189 @@ function create() {
     fill: "#fff",
   });
 
-  //timer
-  timerEvent = this.time.addEvent({
-    delay: 1000,
-    callback: updateTimer,
-    callbackScope: this,
-    loop: true,
-  });
-
   //game
   cursors = this.input.keyboard.createCursorKeys();
   spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
   escapeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+  enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+
+  // Overlay for pause
+  this.overlay = this.add.graphics();
+  this.overlay.fillStyle(0x000000, 0.5);
+  this.overlay.fillRect(0, 0, 800, 600);
+  this.overlay.setVisible(false);
+  startText = this.add
+    .text(400, 300, "Press Enter to Start Game.", {
+      fontSize: "32px",
+      fill: "#FFF",
+    })
+    .setOrigin(0.5, 0.5)
+    .setDepth(1);
 }
 
 function update() {
-  player.setVelocity(0);
-  if (cursors.space.isDown && !spacePressed) {
-    spriteNum = (spriteNum + 1) % sprites.length;
-    player.setTexture(sprites[spriteNum]);
-    spacePressed = false;
-  } else if (cursors.space.isUp) {
-    spacePressed = false;
-  }
+  if (won) return;
+  if (start) {
+    player.setVelocity(0);
+    if (enterKey.isP)
+      if (cursors.space.isDown && !spacePressed) {
+        spriteNum = (spriteNum + 1) % sprites.length;
+        player.setTexture(sprites[spriteNum]);
+        spacePressed = false;
+      } else if (cursors.space.isUp) {
+        spacePressed = false;
+      }
 
-  if (cursors.left.isDown) {
-    player.setVelocityX(speedModifierActive ? -slowSpeed : -normalSpeed);
-  } else if (cursors.right.isDown) {
-    player.setVelocityX(speedModifierActive ? slowSpeed : normalSpeed);
-  }
+    if (cursors.left.isDown) {
+      player.setVelocityX(speedModifierActive ? -slowSpeed : -normalSpeed);
+    } else if (cursors.right.isDown) {
+      player.setVelocityX(speedModifierActive ? slowSpeed : normalSpeed);
+    }
 
-  if (cursors.up.isDown) {
-    player.setVelocityY(speedModifierActive ? -slowSpeed : -normalSpeed);
-  } else if (cursors.down.isDown) {
-    player.setVelocityY(speedModifierActive ? slowSpeed : normalSpeed);
+    if (cursors.up.isDown) {
+      player.setVelocityY(speedModifierActive ? -slowSpeed : -normalSpeed);
+    } else if (cursors.down.isDown) {
+      player.setVelocityY(speedModifierActive ? slowSpeed : normalSpeed);
+    }
+    if (player.x > 770) {
+      winGame(this);
+      console.log(player.x);
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(escapeKey)) {
+      if (!paused) {
+        console.log("pause");
+        pauseGame(this);
+      } else {
+        resumeGame(this);
+      }
+    }
+  } else {
+    this.overlay.setVisible(true);
+    if (Phaser.Input.Keyboard.JustDown(enterKey)) {
+      startGame(this);
+      timerEvent = this.time.addEvent({
+        delay: 1000,
+        callback: updateTimer,
+        callbackScope: this,
+        loop: true,
+      });
+    }
   }
 }
 
+function pauseGame(scene) {
+  paused = true;
+  scene.physics.pause();
+  scene.overlay.setVisible(true);
+  pauseText = scene.add
+    .text(400, 300, "Game Paused. Press ESC to Resume.", {
+      fontSize: "32px",
+      fill: "#FFF",
+    })
+    .setOrigin(0.5, 0.5)
+    .setDepth(2);
+}
+
 function updateTimer() {
-    timer -= 1;
-    timerText.setText("Time: " + timer);
-    if (timer <= 0) {
-      timerEvent.destroy();
-      //Lose Screen
+  timer -= 1;
+  timerText.setText("Time: " + timer);
+
+  if (timer <= 0) {
+    timerEvent.destroy();
+    loseGame(this);
+  }
+}
+
+function loseGame(scene) {
+  scene.physics.pause();
+  scene.overlay.setVisible(true);
+  loseText = scene.add
+    .text(400, 300, "You Lose!", { fontSize: "32px", fill: "#FFF" })
+    .setOrigin(0.5, 0.5)
+    .setDepth(2);
+}
+
+function resumeGame(scene) {
+  paused = false;
+  scene.physics.resume();
+  scene.overlay.setVisible(false);
+  if (pauseText) {
+    pauseText.destroy();
+    pauseText = null;
+  }
+}
+
+function startGame(scene) {
+  start = true;
+  scene.overlay.setVisible(false);
+  startText.setVisible(false);
+}
+
+function winGame(scene) {
+  won = true;
+  winText = scene.add
+    .text(400, 300, "You Win!", { fontSize: "32px", fill: "#FFF" })
+    .setOrigin(0.5, 0.5)
+    .setDepth(1);
+  scene.overlay.setVisible(true);
+  scene.physics.pause();
+  if (timerEvent) {
+    timerEvent.destroy();
+  }
+}
+
+function createCollectibles() {
+  const coinPosition = [
+    { x: 90, y: 155 },
+    { x: 120, y: 155 },
+    { x: 150, y: 155 },
+    { x: 300, y: 180 },
+    { x: 300, y: 210 },
+    { x: 300, y: 240 },
+    { x: 300, y: 270 },
+    { x: 700, y: 180 },
+    { x: 700, y: 210 },
+    { x: 700, y: 240 },
+    { x: 700, y: 270 },
+    { x: 200, y: 380 },
+    { x: 170, y: 380 },
+    { x: 140, y: 380 },
+  ];
+  const fruitPosition = [
+    { x: 700, y: 150 },
+    { x: 110, y: 380 },
+  ];
+  if(level == 2){
+    if (level == 2) {
+      coinPosition.push(
+        { x: 400, y: 300 },
+        { x: 450, y: 300 },
+        { x: 500, y: 300 },
+        { x: 550, y: 300 },
+        { x: 600, y: 300 }
+      );
+    
+      fruitPosition.push(
+        { x: 750, y: 400 },
+        { x: 150, y: 200 }
+      );
     }
   }
 
-function createCollectibles() {
-  for (let i = 0; i < 10; i++) {
-    const coin = this.physics.add.sprite(
-      Math.random() * (710 - 90) + 90, // 90 min 710 max
-      Math.random() * (430 - 155) + 155, // 155 min 430 max
-      "coin"
-    );
+  coinPosition.forEach((position) => {
+    const coin = this.physics.add.sprite(position.x, position.y, "coin");
     coin.setCollideWorldBounds(true);
     coin.setBounce(1);
     coin.anims.play("spin");
     this.physics.add.overlap(player, coin, collectCoin, null, this);
-  }
-  for (let j = 0; j < (level * 2); j++) {
-    const fruit = this.physics.add.sprite(
-      Math.random() * (710 - 90) + 90,
-      Math.random() * (430 - 155) + 155,
-      "fruit"
-    );
+  });
+
+  fruitPosition.forEach((position) => {
+    const fruit = this.physics.add.sprite(position.x, position.y, "fruit");
     fruit.setCollideWorldBounds(true);
     this.physics.add.overlap(player, fruit, collectFruit, null, this);
-  }
+  });
 }
 
 function collectCoin(player, coin) {
@@ -223,9 +343,9 @@ function collectCoin(player, coin) {
 function collectFruit(player, fruit) {
   fruit.destroy();
   fruitsCollected += 1;
-  if (fruitsCollected >= (level * 2)) {
+  if (fruitsCollected >= level * 2) {
     doorSprite.y = 270;
-    doorCollider.active = false
+    doorCollider.active = false;
   }
   if (!speedModifierActive) {
     player.setVelocityX(slowSpeed);
