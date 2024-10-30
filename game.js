@@ -131,3 +131,33 @@ spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 escapeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
 }
+
+function update() {
+    player.setVelocity(0);
+    if (cursors.space.isDown && !spacePressed){
+        spriteNum = (spriteNum +1) % sprites.length;
+        player.setTexture(sprites[spriteNum]);
+        spacePressed = false;
+    }
+    else if(cursors.space.isUp){
+        spacePressed = false;
+    }
+    
+    
+    if (cursors.right.isDown) {
+        player.setVelocityX(160);
+    }
+    else if (cursors.left.isDown) {
+        player.setVelocityX(-160);
+    }
+    
+    if (cursors.up.isDown) {
+        player.setVelocityY(-160);
+    }
+    else if (cursors.down.isDown) {
+        player.setVelocityY(160);
+    }
+    }
+    
+    
+    const game = new Phaser.Game(config);
