@@ -15,7 +15,7 @@
 
 @media screen and (max-width: 650px) {
     .controls{
-        height: 400px;
+        height: 300px;
         background-image: url(./../assets/images/controls-bg-mb.png);
     }
     .controls h2{
@@ -28,6 +28,6 @@
         padding-top: 25px;
     }
     .controls > div{
-        padding-top: 100px;
+        padding-top: 40px;
     }
 }
