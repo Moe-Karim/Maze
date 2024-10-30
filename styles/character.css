@@ -18,7 +18,16 @@
 
 
 @media screen and (max-width: 780px) {
-    .about .space {
-      margin: 0 50px;
+    .character > div{
+      flex-direction: column;
+    }
+    .character img {
+      width: 148px;
+      height: 328px;
+      margin: 50px 0;
+    }
+    .hazmat{
+      align-items: end;
+      flex-direction: reverse;
     }
   }

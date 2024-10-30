@@ -19,13 +19,13 @@
         background-image: url(./../assets/images/controls-bg-mb.png);
     }
     .controls img{
-        height: 150px;
+        height: 140px;
     }
     .left-right{
         padding-top: 25px;
     }
     .controls > div{
-        padding-top: 35px;
+        padding-top: 40px;
     }
 
 }

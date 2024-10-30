@@ -1,6 +1,7 @@
 .about-game {
   margin-bottom: 50px;
   width: 100%;
+  
 }
 
 .about-game h1 {
@@ -8,7 +9,7 @@
 }
 
 @media screen and (max-width: 780px) {
-  .about .space {
+  .space {
     margin: 0 50px;
   }
 }
