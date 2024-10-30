@@ -12,13 +12,12 @@ body{
 }
 h1{
     font-size: 64px;
-    padding: 20px 0;
 }
 h2{
     font-size: 36px;
 }
 p{
-    font-size: 20px;
+    font-size: 24px;
 }
 .nav-bar{
     width: 1000px;

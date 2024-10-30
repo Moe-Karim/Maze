@@ -1,0 +1,24 @@
+.character {
+  margin: 100px 0;
+}
+
+.character img {
+  height: 300px;
+  margin-right: 100px;
+}
+
+.hazmat{
+  text-align: right;
+}
+
+.hazmat img{
+  margin-right: 0px;
+  margin-left: 100px;
+}
+
+
+@media screen and (max-width: 780px) {
+    .about .space {
+      margin: 0 50px;
+    }
+  }
