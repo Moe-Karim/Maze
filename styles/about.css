@@ -1,5 +1,11 @@
 .about{
-    width: 100%;
+    height: 600px;
+    gap: 20px;
+}
+.about img{
+  width: 500px;
+  height: 350px;
+
 }
 .about-game {
   margin-bottom: 50px;
@@ -8,13 +14,22 @@
 
 .about-game h1 {
   padding: 20px 0;
+  margin: 20px;
 }
 
 @media screen and (max-width: 780px) {
   .space {
-    margin: 0 50px;
+    margin: 0 20px;
   }
   .about-game {
     padding: 50px 0;
+  }
+  .about-game h1 {
+    margin: 5px;
+  }
+  .about img{
+    width: 250px;
+    height: 200px;
+  
   }
 }

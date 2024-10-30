@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="./styles/about.css" />
     <link rel="stylesheet" href="./styles/warning.css">
     <link rel="stylesheet" href="./styles/character.css" />
+    <link rel="stylesheet" href="./styles/hero.css">
+    <link rel="stylesheet" href="./styles/features.css">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -36,7 +38,9 @@
         </div>
       </div>
     </nav>
-
+    <section class="flex center" id="Game">
+        <div class="hero center rounded"></div>
+    </section>
     <section class="controls" id="Controls">
       <div class="flex column">
         <h2 class="flex center">MOVE FORWARD</h2>
@@ -48,10 +52,15 @@
         <h2 class="flex center">MOVE BACKWARD</h2>
       </div>
     </section>
-    <section class="about" id="About">
-      <div class="column about-game space">
-        <h1>ABOUT THE GAME</h1>
-        <p>
+    <section class="about space" id="About">
+      <div class="flex column about-game space-between">
+        <div class="box">
+            <h1>ABOUT THE GAME</h1>
+        </div>
+        <div class="flex">
+            <div class="box"><img class="rounded start" src="./assets/images/Screenshot 2024-10-30 111038.png">
+            </div>
+       <div class="box"> <p>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo
           maxime quod unde adipisci tempore voluptate nulla pariatur non
           necessitatibus nobis, culpa delectus ipsam dicta ad a illo! Id, itaque
@@ -60,18 +69,10 @@
           praesentium illo amet sed unde, sit veritatis! Minima praesentium
           veniam illum voluptatem officia. Omnis minus provident cum a corrupti
           deleniti soluta mollitia fuga quam nemo voluptatem non asperiores ut,
-          et labore similique. Minus expedita nesciunt facilis numquam similique
-          exercitationem dolores quidem eum sint. Modi nesciunt repudiandae
-          porro blanditiis saepe omnis dolorum. Fugit quod necessitatibus
-          corrupti ab architecto qui tempore. Aliquid, incidunt consequatur
-          corrupti deleniti quas necessitatibus, dolorum delectus optio pariatur
-          quaerat sapiente deserunt! Repellendus corporis excepturi nisi ut
-          expedita enim eius obcaecati dolor, nulla doloremque voluptate
-          voluptatum laboriosam exercitationem repellat ullam, recusandae sed
-          quisquam? Illo labore iusto natus ea voluptas cumque dolores
-          recusandae!
         </p>
       </div>
+    </div>
+    </div>
     </section>
     <section class="character-section" id="Character">
       <div class="space">
@@ -136,11 +137,28 @@
           </div>
       </div>
     </section>
+    <section class="space" id="Features">
+
+            <h1>Features:</h1>
+
+            <div class="flex center">
+        <div class="features flex center rounded">
+            <ul>
+                <li>Switch between characters</li>
+                <li>Pause the game and continue whenever you want</li>
+                <li>Check your score and break your record</li>
+                <li>Enjoy fruits to open closed doors!</li>
+                <li>Play now online for free!</li>
+
+            </ul>
+    </div>
+</div>
+    </section>
     <section class="warning-section flex center">
         <div class="flex center space warning">
             <div class="flex column center">
                 <h1>WHAT ARE YOU <br> STILL LOOKING FOR!!</h1>
-                <button>PLAY NOW!</button>
+                <button href="hero">PLAY NOW!</button>
             </div>
             <img src="./assets/images/tryhard-punch.png" alt="">
         </div>
