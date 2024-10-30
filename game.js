@@ -3,6 +3,12 @@ var spriteNum = 0;
 var spacePressed = false;
 var score = 0;
 var scoreText;
+var level = 1;
+var fruitsCollected = 0;
+var totalFruits = 6;
+var normalSpeed = 160;
+var slowSpeed = 80;
+var speedModifierActive = false;
 
 var config = {
   type: Phaser.AUTO,
@@ -53,7 +59,11 @@ function preload() {
   this.load.image("explorer", "assets/characters/explorer0065.png");
 
   //collectibles
-  this.load.spritesheet('coin', 'assets/coin.png', {
+  this.load.spritesheet("coin", "assets/coin.png", {
+    frameWidth: 16,
+    frameHeight: 16,
+  });
+  this.load.spritesheet("fruit", "assets/fruit.png", {
     frameWidth: 16,
     frameHeight: 16,
   });
@@ -66,8 +76,7 @@ function create() {
   this.add.image(400, 502.5, "mid-down");
 
   //plants
-  
-  
+
   platform = this.physics.add.staticGroup();
 
   //maze
@@ -114,12 +123,12 @@ function create() {
 
   //coins
   this.anims.create({
-    key: 'spin',
-    frames: this.anims.generateFrameNumbers('coin', { start: 0, end: 12 }),
+    key: "spin",
+    frames: this.anims.generateFrameNumbers("coin", { start: 0, end: 12 }),
     frameRate: 10,
-    repeat: -1
+    repeat: -1,
   });
-  
+
   createCollectibles.call(this);
 
   this.physics.add.collider(player, platform);
@@ -128,50 +137,53 @@ function create() {
   cursors = this.input.keyboard.createCursorKeys();
   spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
   escapeKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-
-  
 }
 
 function update() {
-    player.setVelocity(0);
-    if (cursors.space.isDown && !spacePressed){
-        spriteNum = (spriteNum +1) % sprites.length;
-        player.setTexture(sprites[spriteNum]);
-        spacePressed = false;
-    }
-    else if(cursors.space.isUp){
-        spacePressed = false;
-    }
-    
-    
-    if (cursors.right.isDown) {
-        player.setVelocityX(160);
-    }
-    else if (cursors.left.isDown) {
-        player.setVelocityX(-160);
-    }
-    
-    if (cursors.up.isDown) {
-        player.setVelocityY(-160);
-    }
-    else if (cursors.down.isDown) {
-        player.setVelocityY(160);
-    }
-    }
-
-  function createCollectibles() {
-    for (let i = 0; i < 10; i++) {
-      const coin = this.physics.add.sprite(
-        Math.random() * (710 - 90) + 90,// 90 min 710 max
-        Math.random() * (430 - 155) + 155,// 155 min 430 max
-        "coin"
-      );
-      coin.setCollideWorldBounds(true);
-      coin.setBounce(1);
-      coin.anims.play('spin'); 
-      this.physics.add.overlap(player, coin, collectCoin, null, this);
-    }
+  player.setVelocity(0);
+  if (cursors.space.isDown && !spacePressed) {
+    spriteNum = (spriteNum + 1) % sprites.length;
+    player.setTexture(sprites[spriteNum]);
+    spacePressed = false;
+  } else if (cursors.space.isUp) {
+    spacePressed = false;
   }
+
+  if (cursors.left.isDown) {
+    player.setVelocityX(speedModifierActive ? -slowSpeed : -normalSpeed);
+  } else if (cursors.right.isDown) {
+    player.setVelocityX(speedModifierActive ? slowSpeed : normalSpeed);
+  }
+
+  if (cursors.up.isDown) {
+    player.setVelocityY(speedModifierActive ? -slowSpeed : -normalSpeed);
+  } else if (cursors.down.isDown) {
+    player.setVelocityY(speedModifierActive ? slowSpeed : normalSpeed);
+  }
+}
+
+function createCollectibles() {
+  for (let i = 0; i < 10; i++) {
+    const coin = this.physics.add.sprite(
+      Math.random() * (710 - 90) + 90, // 90 min 710 max
+      Math.random() * (430 - 155) + 155, // 155 min 430 max
+      "coin"
+    );
+    coin.setCollideWorldBounds(true);
+    coin.setBounce(1);
+    coin.anims.play("spin");
+    this.physics.add.overlap(player, coin, collectCoin, null, this);
+  }
+  for (let j = 0; j < level * 2; j++) {
+    const fruit = this.physics.add.sprite(
+      Math.random() * (710 - 90) + 90,
+      Math.random() * (430 - 155) + 155,
+      "fruit"
+    );
+    fruit.setCollideWorldBounds(true);
+    this.physics.add.overlap(player, fruit, collectFruit, null, this);
+  }
+}
 
 function collectCoin(player, coin) {
   coin.destroy();
@@ -179,5 +191,19 @@ function collectCoin(player, coin) {
   scoreText.setText("Score: " + score);
 }
 
+function collectFruit(player, fruit) {
+  fruit.destroy();
+  if (!speedModifierActive) {
+    player.setVelocityX(slowSpeed);
+    player.setVelocityY(slowSpeed);
+    speedModifierActive = true;
+
+    setTimeout(() => {
+      player.setVelocityX(normalSpeed);
+      player.setVelocityY(normalSpeed);
+      speedModifierActive = false;
+    }, 3000);
+  }
+}
 
 const game = new Phaser.Game(config);
