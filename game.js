@@ -294,10 +294,7 @@ function nextLevel(scene) {
   timer = 40;
   fruitsCollected = 0;
   doorCollider.active = true;
-  if (doorSprite) {
-    doorSprite.destroy();
-  }
-  doorSprite = door.create(755, 330, "vertical-wall");
+  doorSprite.y = 330;
     timerText.setText("Time: " + timer);
   timerEvent = scene.time.addEvent({
     delay: 1000,
