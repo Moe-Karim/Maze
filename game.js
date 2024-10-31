@@ -175,14 +175,14 @@ function update() {
   if (won) return;
   if (start) {
     player.setVelocity(0);
-    if (enterKey.isP)
-      if (cursors.space.isDown && !spacePressed) {
-        spriteNum = (spriteNum + 1) % sprites.length;
+      if (cursors.space.isDown && !spacePressed){
+        spriteNum = (spriteNum +1) % sprites.length;
         player.setTexture(sprites[spriteNum]);
         spacePressed = false;
-      } else if (cursors.space.isUp) {
+    }
+    else if(cursors.space.isUp){
         spacePressed = false;
-      }
+    }
 
     if (cursors.left.isDown) {
       player.setVelocityX(speedModifierActive ? -slowSpeed : -normalSpeed);
@@ -292,6 +292,7 @@ function nextLevel(scene) {
   }
   player.setPosition(25, 150);
   timer = 40;
+  fruitsCollected = 0;
   doorCollider.active = true;
   if (doorSprite) {
     doorSprite.destroy();
