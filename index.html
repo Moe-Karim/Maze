@@ -1,11 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maze Runner</title>
+    <link rel="stylesheet" href="./styles/base.css" />
+    <link rel="stylesheet" href="./styles/utilities.css" />
+    <link rel="stylesheet" href="./styles/colors.css" />
+    <link rel="stylesheet" href="./styles/controls.css" />
+    <link rel="stylesheet" href="./styles/about.css" />
+    <link rel="stylesheet" href="./styles/warning.css">
+    <link rel="stylesheet" href="./styles/character.css" />
+    <link rel="stylesheet" href="./styles/hero.css">
+    <link rel="stylesheet" href="./styles/features.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.86.0/dist/phaser.js"></script>
+  </head>
+  <body>
+    <nav class="flex column center">
+      <div class="nav-bar flex space-between">
+        <div class="box">
+          <img src="./assets/images/logo.png"/>
+        </div>
+        <div class="flex space-around">
+          <div class="flex center">
+            <a href="#Game">Game</a>
+            <a href="#Controls">Controls</a>
+            <a href="#About">About</a>
+            <a href="#Character">Character</a>
+            <a href="#Features">Features</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <section class="flex center" id="Game">
+        <div class="hero center rounded" id="game-container">
+          <script src="./game.js"></script>
+        </div>
+    </section>
+    <section class="controls flex space-between " id="Controls">
+     <div class="flex center">
+       <div class="flex column start">
+        <h2 class="flex center">MOVE FORWARD</h2>
+        <div class="flex center">
+          <h2 class="left-right">MOVE LEFT</h2>
+          <img src="./assets/images/arrow-keys.png" alt="Arrow keys" />
+          <h2 class="left-right">MOVE RIGHT</h2>
+        </div>
+        <h2 class="flex center">MOVE BACKWARD</h2>
+      </div>
+    </div>
+       <div class="flex center grow2">
+      <div class="flex column start ">
+        <h2 class="left-right">Change character</h2>
+        <img src="./assets/images/Daco_4098047.png">
+      </div>
+    </div> <div class="flex center">
+      <div class="flex column start">
+        <h2 class="left-right">Pause/Resume</h2>
+        <img src="./assets/images/Daco_5630054.png">
+      </div>
+    </div>
+
+    </section>
+    <section class="about space" id="About">
+      <div class="flex column about-game space-between">
+        <div class="flex">
+            <h1>ABOUT THE GAME</h1>
+        </div>
+        <div class="flex">
+            <div class="box"><img class="rounded start" src="./assets/images/Screenshot 2024-10-30 111038.png">
+            </div>
+       <div class="box"> <p>
+        In a mysterious maze, three characters embark on an adventure.
+         The Explorer seeks treasures, using instincts to find the way.
+          The Hazmat worker protects everyone from hidden dangers.
+         The Tryhard faces every challenge with determination. Together,
+         they uncover secrets and learn the power of teamwork.
+        </p>
+      </div>
+    </div>
+    </div>
+    </section>
+    <section class="character-section" id="Character">
+      <div class="space">
+          <div class="character rounded">
+            <div class="flex ">
+              <img src="./assets/images/explorer.png" alt="Explorer Character Image" />
+              <div class="flex column space-between ">
+                <h1>EXPLORER</h1>
+                <p>
+                  The Explorer loves to find hidden treasures in the maze. They carry a backpack and have a good sense of direction.
+                   Every time they discover something new, they get closer to solving the maze's mysteries.
+                </p>
+              </div>
+            </div>
+            <div class="flex character hazmat">
+              <div class="flex column space-between">
+                <h1>HAZMAT</h1>
+                <p>
+                  The Hazmat worker wears a special suit to explore the maze's dangers.
+                  They use special tools to check for harmful substances and collect samples.
+                   Their goal is to understand the problems in the maze and keep the outside world safe.
+                </p>
+              </div>
+              <img src="./assets/images/hazmat.png" alt="Hazmat Character Image" />
+            </div>
+            <div class="flex character">
+              <img src="./assets/images/tryhard.png" alt="TryHard Character Image" />
+              <div class="flex column space-between">
+                <h1>TRYHARD</h1>
+                <p>
+                  The Tryhard never gives up and wants to beat every challenge in the maze. With each level,
+                   they work hard and use all their skills to win.
+                   They encourage others to keep trying, showing that hard work can lead to success.
+                </p>
+              </div>
+            </div>
+          </div>
+      </div>
+    </section>
+    <section class="space" id="Features">
+
+            <h1>Features:</h1>
+
+            <div class="flex center">
+        <div class="features flex center rounded">
+            <ul>
+                <li>Switch between characters</li>
+                <li>Pause the game and continue whenever you want</li>
+                <li>Check your score and break your record</li>
+                <li>Enjoy fruits to open closed doors!</li>
+                <li>Play now online for free!</li>
+
+            </ul>
+    </div>
+</div>
+    </section>
+    <section class="warning-section flex center">
+        <div class="flex center space warning">
+            <div class="flex column center">
+                <h1>WHAT ARE YOU <br> STILL LOOKING FOR!!</h1>
+                <button type="button"><a href="#Game">PLAY NOW!</a></button>
+            </div>
+            <img src="./assets/images/tryhard-punch.png" alt="">
+        </div>
+    </section>
+    <footer class="flex space-evenly">
+      <div class="box">
+        <span class="wrap">@copyright Karimf Fahs - Aref Abou Hamdan 2024</span>
+      </div>
+      <div class="box">
+        <ul class="flex center">
+          <li><a href="#Game">Play</a></li>
+          <li><a href="#Controls">Controls</a></li>
+          <li><a href="#Character">Character</a></li>
+          <li><a href="#Features">Features</a></li>
+        </ul>
+      </div>
+      <div class="flex center">
+        <i class="fa fa-facebook-f"></i>
+        <i class="fa fa-instagram"></i>
+        <i class="fa fa-github"></i>
+        <i class="fa fa-envelope-o"></i>
+        <i class="fa fa-phone"></i>
+      </div>
+    </footer>
+  </body>
 </html>

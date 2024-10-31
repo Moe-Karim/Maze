@@ -1,0 +1,29 @@
+.features{
+    width: 800px;
+    height: 600px;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255,0)),url(../assets/images/Screenshot\ 2024-10-31\ 000815.png);
+    background-attachment: fixed;
+
+}
+.features ul{
+    line-height: 100px;
+    list-style: none;
+
+}
+.features ul li{
+    font-size: 40pt;
+    font-weight: bold;
+    text-align: left;
+}
+@media screen and (max-width: 700px) {
+    .features{
+        width: 90%;
+        height: 400px;
+    }
+    .features ul{
+        line-height: normal;
+    }
+    .features ul li{
+        font-size: 20pt;
+    }
+}
