@@ -13,10 +13,8 @@
     <link rel="stylesheet" href="./styles/character.css" />
     <link rel="stylesheet" href="./styles/hero.css">
     <link rel="stylesheet" href="./styles/features.css">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.86.0/dist/phaser.js"></script>
   </head>
   <body>
     <nav class="flex column center">
@@ -36,7 +34,9 @@
       </div>
     </nav>
     <section class="flex center" id="Game">
-        <div class="hero center rounded"></div>
+        <div class="hero center rounded" id="game-container">
+          <script src="./game.js"></script>
+        </div>
     </section>
     <section class="controls flex space-between " id="Controls">
      <div class="flex center">
@@ -141,7 +141,7 @@
         <div class="flex center space warning">
             <div class="flex column center">
                 <h1>WHAT ARE YOU <br> STILL LOOKING FOR!!</h1>
-                <button href="hero">PLAY NOW!</button>
+                <button type="button"><a href="#Game">PLAY NOW!</a></button>
             </div>
             <img src="./assets/images/tryhard-punch.png" alt="">
         </div>
