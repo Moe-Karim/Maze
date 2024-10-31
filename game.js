@@ -15,6 +15,7 @@ var speedModifierActive = false;
 var doorSprite;
 var timerText;
 var timer = 40;
+var timerPause = false
 var timerEvent;
 
 var config = {
@@ -195,12 +196,10 @@ function update() {
     }
     if (player.x > 770) {
       winGame(this);
-      console.log(player.x);
     }
 
     if (Phaser.Input.Keyboard.JustDown(escapeKey)) {
       if (!paused) {
-        console.log("pause");
         pauseGame(this);
       } else {
         resumeGame(this);
@@ -222,6 +221,7 @@ function update() {
 
 function pauseGame(scene) {
   paused = true;
+  timerPause = true;
   scene.physics.pause();
   scene.overlay.setVisible(true);
   pauseText = scene.add
@@ -234,6 +234,7 @@ function pauseGame(scene) {
 }
 
 function updateTimer() {
+  if(!timerPause)
   timer -= 1;
   timerText.setText("Time: " + timer);
 
@@ -254,6 +255,7 @@ function loseGame(scene) {
 
 function resumeGame(scene) {
   paused = false;
+  timerPause = false;
   scene.physics.resume();
   scene.overlay.setVisible(false);
   if (pauseText) {
@@ -289,7 +291,12 @@ function nextLevel(scene) {
   }
   player.setPosition(25, 150);
   timer = 40;
-  timerText.setText("Time: " + timer);
+  doorCollider.active = true;
+  if (doorSprite) {
+    doorSprite.destroy();
+  }
+  doorSprite = door.create(755, 330, "vertical-wall");
+    timerText.setText("Time: " + timer);
   timerEvent = scene.time.addEvent({
     delay: 1000,
     callback: updateTimer,
